@@ -65,7 +65,7 @@
                         <label for="title">添加标签：</label>
                         <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="输入标签，以,隔开">
                     </div>
-                    <span class="alert alert-danger" th:text="${error}" th:if="${session.user!=null}"></span>
+                    <span class="alert alert-danger" th:text="${error}" th:if="${error!=null}"></span>
                     <button type="submit" class="btn btn-success btn-publish">发布</button>
                 </form>
             </div>
