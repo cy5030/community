@@ -1,17 +1,18 @@
 package com.community.community.model;
 
 public class User {
-    private int id;
+    private Integer id;
     private String accountId;
     private String name;
     private String token;
     private Long gmtCreate;
     private Long gmtModified;
-    public int getId() {
+    private String bio;
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,5 +56,11 @@ public class User {
         this.gmtModified = gmtModified;
     }
 
+    public String getBio() {
+        return bio;
+    }
 
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 }
