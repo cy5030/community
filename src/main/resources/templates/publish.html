@@ -3,11 +3,11 @@
 <head>
     <title>发布</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/community.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <script src="js/jquery-3.5.0.min.js" ></script>
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <script src="/js/jquery-3.5.0.min.js" ></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="~{navigation::nav}"></div>
@@ -18,13 +18,17 @@
                 <hr>
 
                 <form action="/publish" method="post">
+                    <input type="hidden" name="id" th:value="${id}">
                     <div class="formgroup">
                         <label for="title">问题标题（简单扼要）：</label>
                         <input type="text" class="form-control" th:value="${title}" id="title" name="title" placeholder="问题标题">
                     </div>
                     <div class="formgroup">
                         <label for="title">问题补充（必填，请参照右侧提示）：</label>
-                        <textarea name="description" th:value="${description}" id="description" class="form-control" cols="30" rows="10"></textarea>
+                        <label for="title">问题补充（必填，请参照右侧提示）：</label>
+                        <textarea class="form-control"  th:text="${description}" id="description" name="description" cols="30" rows="10">
+
+                        </textarea>
                     </div>
                     <div class="formgroup">
                         <label for="title">添加标签：</label>

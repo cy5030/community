@@ -11,7 +11,6 @@
 
 [Gitgub Oauth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 
-[]
 
 ## 工具
 [Git](https://git-scm.com/download)
@@ -31,4 +30,7 @@ CREATE CACHED TABLE "PUBLIC"."USER"(
     "GMT_CREATE" BIGINT,
     "GMT_MODIFIED" BIGINT
 )
+```
+```逆向工程（mybatis反转数据表）
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```

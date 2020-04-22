@@ -16,3 +16,13 @@
     font-weight: normal;
     color: #999;
 }
+.profile.section{
+    margin-top: 25px;
+}
+.community-menu{
+    color: #999;
+    font-size: 13px;
+}
+.jumbotron{
+    margin:50px;
+}
