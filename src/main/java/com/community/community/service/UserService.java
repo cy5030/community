@@ -15,7 +15,7 @@ public class UserService {
 
     public void createOrUpdate(User user) {
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andTokenEqualTo(user.getAccountId());
+        userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
         List<User> users =  userMapper.selectByExample(userExample);
         if(users.size() == 0){
             //插入
@@ -30,7 +30,7 @@ public class UserService {
             dbUser.setName(user.getName());
             dbUser.setToken(user.getToken());
             UserExample example = new UserExample();
-            example.createCriteria().andIdEqualTo(dbUser.getId());
+            example.createCriteria().andIdEqualTo(users.get(0).getId());
             userMapper.updateByExampleSelective(dbUser, example);
         }
     }

@@ -29,6 +29,7 @@ public class AuthorizedController {
     private String clientSecret;
     @Value("${github.redirect.uri}")
     private String redirectUri;
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code")String code,
                            @RequestParam(name = "state") String state,
@@ -49,13 +50,13 @@ public class AuthorizedController {
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatar_url());
-            response.addCookie(new Cookie("token",token));
             userService.createOrUpdate(user);
+            response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }else{
             //登录失败，重新登录
         }
-        return "index";
+        return "redirect:/";
     }
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,

@@ -31,6 +31,10 @@ CREATE CACHED TABLE "PUBLIC"."USER"(
     "GMT_MODIFIED" BIGINT
 )
 ```
+```
+mvn flyway:migrate
+```
+
 ```逆向工程（mybatis反转数据表）
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```

@@ -18,10 +18,19 @@
     <result column="TAG" jdbcType="VARCHAR" property="tag" />
   </resultMap>
 
-  <update id="inView" parameterType="com.community.community.model.Question">
+  <update id="incView" parameterType="com.community.community.model.Question">
     update QUESTION
     set
     VIEW_COUNT = VIEW_COUNT + #{viewCount,jdbcType=INTEGER}
     where ID = #{id}
   </update>
+  <update id="incComment" parameterType="com.community.community.model.Question">
+    update QUESTION
+    set
+    COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
+    where ID = #{id}
+  </update>
+  <select id="selectRelated" parameterType="com.community.community.model.Question" resultMap="BaseResultMap">
+    select * from QUESTION where id!=#{id} and tag regexp #{tag}
+  </select>
 </mapper>
