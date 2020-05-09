@@ -3,7 +3,7 @@ package com.community.community.controller;
 import com.community.community.dto.CommentCreateDTO;
 import com.community.community.dto.CommentDTO;
 import com.community.community.dto.ResultDTO;
-import com.community.community.enums.CommentTypeErum;
+import com.community.community.enums.CommentTypeEnum;
 import com.community.community.exception.CustomizeErrorCode;
 import com.community.community.model.Comment;
 import com.community.community.model.User;
@@ -42,14 +42,14 @@ public class CommentController {
         comment.setCommentator(user.getId());
         comment.setLikeCount(0);
         comment.setCommentCount(0);
-        commentService.createOrUpdate(comment);
+        commentService.createOrUpdate(comment,user);
         return ResultDTO.okOf();
     }
 
     @ResponseBody
     @RequestMapping(value = "/comment/{id}", method= RequestMethod.GET)
     public ResultDTO<List> comments(@PathVariable("id") Long id){
-        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeErum.COMMENT);
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
         return ResultDTO.okOf(commentDTOS);
     }
 }

@@ -2,6 +2,7 @@ package com.community.community.controller;
 
 import com.community.community.dto.PageDTO;
 import com.community.community.model.User;
+import com.community.community.service.NotificationService;
 import com.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 public class ProfileController {
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private NotificationService notificationService;
+
     @GetMapping("/profile/{action}")
     public String profile(HttpServletRequest request,
                           @PathVariable(name="action") String action,
@@ -27,16 +32,18 @@ public class ProfileController {
         if(user==null){
             return "redirect:/";
         }
-        PageDTO pagination =  questionService.list(user.getId(),page,size);
-        model.addAttribute("pagination",pagination);
+
         if("questions".equals(action)){
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的提问");
+            PageDTO pagination =  questionService.list(user.getId(),page,size);
+            model.addAttribute("pagination",pagination);
         }else if("replies".equals(action)){
+            PageDTO pagination  = notificationService.list(user.getId(),page,size);
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
+            model.addAttribute("pagination",pagination);
         }
-
         return "profile";
     }
 }

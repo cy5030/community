@@ -3,7 +3,7 @@ package com.community.community.controller;
 
 import com.community.community.dto.CommentDTO;
 import com.community.community.dto.QuestionDTO;
-import com.community.community.enums.CommentTypeErum;
+import com.community.community.enums.CommentTypeEnum;
 import com.community.community.service.CommentService;
 import com.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class QuestionContronller {
             Model model){
         QuestionDTO questionDTO  = questionService.getById(id);
         List<QuestionDTO> relatedQuestions= questionService.selectRelated(questionDTO);
-        List<CommentDTO> comments= commentService.listByTargetId(id, CommentTypeErum.QUESTION);
+        List<CommentDTO> comments= commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
