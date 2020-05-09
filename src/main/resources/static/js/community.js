@@ -111,3 +111,21 @@ function collapseComments(e) {
         }
     }
 }
+
+
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
+function selectTag(e) {
+    var previous = $("#tag").val();
+    var value = e.getAttribute("data-tag");
+    var pre = previous.split(',');
+    if(pre.indexOf(value)==-1){
+        if(previous){
+            $("#tag").val(previous + ',' + value);
+        }else{
+            $("#tag").val(value);
+        }
+    }
+}

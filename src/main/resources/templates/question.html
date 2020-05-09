@@ -40,7 +40,6 @@
                 <a th:href="@{'/edit/'+${question.id}}"
                    th:if="${session.user != null && question.creator==session.user.id}">
                     <span class="glyphicon glyphicon-pencil">编辑</span>
-
                 </a>
                 </div>
             </div>
