@@ -111,7 +111,7 @@ public class QuestionService {
         return questionDTO;
     }
 
-    public void createOrUpate(Question question) {
+    public void createOrUpdate(Question question) {
         if(question.getId() == null){
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());

@@ -70,17 +70,19 @@ public class PublishController {
             model.addAttribute("error","输入非法标签："+invalid);
             return "publish";
         }
+
         User user = (User)request.getSession().getAttribute("user");
         if(user==null){
             model.addAttribute("error","用户未登录");
             return "publish";
         }
+
         Question question = new Question();
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        questionService.createOrUpate(question);
+        questionService.createOrUpdate(question);
         return "redirect:/";
 
     }

@@ -6,10 +6,14 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/community.css"/>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/editormd.preview.min.css"/>
     <script src="/js/jquery-3.5.0.min.js" ></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/moment.min.js" type="application/javascript"></script>
     <script src="/js/community.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/lib/marked.min.js" type="application/javascript"></script>
+    <script src="/js/lib/prettify.min.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="~{navigation::nav}"></div>
@@ -26,8 +30,22 @@
                 阅读数：<span th:text="${question.viewCount}"></span>
             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"> </div>
+
+                <!-- 内容-->
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view" >
+                    <textarea style="display:none;" th:text="${question.description}"></textarea>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                            editormd.markdownToHTML("question-view", {
+                        });
+                    });
+                </script>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+
+                <!-- 标签-->
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <span class="label label-info question-tag" th:each="tag:${question.tag.split(',')}">
                     <span class="glyphicon glyphicon-tags"></span>
@@ -36,6 +54,7 @@
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
                 <br>
+                <!-- 编辑-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 community-menu">
                 <a th:href="@{'/edit/'+${question.id}}"
                    th:if="${session.user != null && question.creator==session.user.id}">
@@ -125,7 +144,7 @@
             <!--微信-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>扫描关注</h4>
-                <img src="/img/wechat.jpg" class="img-thumbnail question-wechat">
+                <img src="/images/wechat.jpg" class="img-thumbnail question-wechat">
             </div>
             <!--相关问题-->
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

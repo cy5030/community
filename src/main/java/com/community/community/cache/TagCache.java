@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TagCache {
     public static List<TagDTO> get(){
@@ -27,7 +26,12 @@ public class TagCache {
         String[] split = StringUtils.split(tags, ",");
         List<TagDTO> tagDTOS = get();
         List<String> tagList = tagDTOS.stream().flatMap(tag -> tag.getTags().stream()).collect(Collectors.toList());
-        String invalid = Arrays.stream(split).filter(t -> !tagList.contains(t)).collect(Collectors.joining(","));
+        String invalid = "";
+        if(split != null){
+            invalid = Arrays.stream(split).filter(t -> !tagList.contains(t)).collect(Collectors.joining(","));
+        }else if(!tagList.contains(tags)){
+            invalid = tags;
+        }
         return invalid;
     }
 }
