@@ -46,12 +46,13 @@ public class PublishController {
             @RequestParam(value = "title",required = false)  String title,
             @RequestParam(value = "description",required = false) String description,
             @RequestParam(value = "tag",required = false) String tag,
-            //@RequestParam(value = "id",required = false) Long id,
+            @RequestParam(value = "id",required = false) Long id,
             HttpServletRequest request,
             Model model){
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("id",id);
         model.addAttribute("tags", TagCache.get());
         if(title == null || title.equals("")){
             model.addAttribute("error","标题不能为空");
@@ -78,6 +79,7 @@ public class PublishController {
         }
 
         Question question = new Question();
+        question.setId(id);
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
