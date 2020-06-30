@@ -1,5 +1,6 @@
 package com.community.community.mapper;
 
+import com.community.community.dto.QuestionQueryDTO;
 import com.community.community.model.Question;
 import com.community.community.model.QuestionExample;
 import java.util.List;
@@ -102,4 +103,8 @@ public interface QuestionMapper {
      * @mbg.generated Sat May 09 21:31:15 CST 2020
      */
     int updateByPrimaryKey(Question record);
+
+    Integer countBySearch(QuestionQueryDTO questionQueryDTO);
+
+    List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
 }

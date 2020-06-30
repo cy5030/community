@@ -2,6 +2,7 @@ package com.community.community.service;
 
 import com.community.community.dto.PageDTO;
 import com.community.community.dto.QuestionDTO;
+import com.community.community.dto.QuestionQueryDTO;
 import com.community.community.exception.CustomizeErrorCode;
 import com.community.community.exception.CustomizeException;
 import com.community.community.mapper.QuestionExtMapper;
@@ -30,10 +31,17 @@ public class QuestionService {
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
-    public PageDTO<QuestionDTO> list(Integer page, Integer size) {
+    public PageDTO<QuestionDTO> list(String search, Integer page, Integer size) {
+
+        if(StringUtils.isNotBlank(search)){
+            String []tags = StringUtils.split(search," ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
 
         PageDTO<QuestionDTO> pageDTO = new PageDTO<>();
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionMapper.countBySearch(questionQueryDTO);
         Integer totalPage;
         if(totalCount%size==0){
             totalPage = totalCount/size;
@@ -50,7 +58,7 @@ public class QuestionService {
         Integer offset = size * (page - 1);
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
-        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(questionExample,new RowBounds(offset,size));
+        List<Question> questionList = questionMapper.selectBySearch(questionQueryDTO);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questionList) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
